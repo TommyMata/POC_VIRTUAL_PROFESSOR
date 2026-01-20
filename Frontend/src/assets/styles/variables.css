@@ -1,0 +1,61 @@
+:root {
+  /* Colors - Primary (Ant Design Blue) */
+  --color-primary-50: #e6f4ff;
+  --color-primary-100: #bae0ff;
+  --color-primary-200: #91caff;
+  --color-primary-300: #69b1ff;
+  --color-primary-400: #4096ff;
+  --color-primary-500: #1677ff;
+  --color-primary-600: #0958d9;
+  --color-primary-700: #003eb3;
+  --color-primary-800: #002c8c;
+  --color-primary-900: #001d66;
+
+  /* Colors - Neutral */
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e8e8e8;
+  --color-neutral-300: #d9d9d9;
+  --color-neutral-400: #bfbfbf;
+  --color-neutral-500: #8c8c8c;
+  --color-neutral-600: #595959;
+  --color-neutral-700: #434343;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #141414;
+
+  /* Colors - Semantic */
+  --color-success: #52c41a;
+  --color-warning: #faad14;
+  --color-error: #ff4d4f;
+  --color-info: #1677ff;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow: 500ms ease;
+
+  /* Layout */
+  --header-height: 64px;
+  --sidebar-width: 256px;
+  --sidebar-collapsed-width: 80px;
+}

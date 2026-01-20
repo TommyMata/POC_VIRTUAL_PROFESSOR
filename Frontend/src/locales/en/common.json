@@ -1,0 +1,48 @@
+{
+  "app": {
+    "name": "POC Virtual Professor",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry"
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "filter": "Filter",
+    "actions": "Actions",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "reset": "Reset"
+  },
+  "language": {
+    "select": "Select language",
+    "es": "Spanish",
+    "en": "English"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome to the Dashboard",
+    "description": "This is your main control center."
+  },
+  "errors": {
+    "generic": "An unexpected error occurred",
+    "network": "Connection error. Please check your internet connection.",
+    "notFound": "Resource not found",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Access denied"
+  }
+}

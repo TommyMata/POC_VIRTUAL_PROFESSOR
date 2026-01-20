@@ -1,0 +1,48 @@
+{
+  "app": {
+    "name": "POC Virtual Professor",
+    "loading": "Cargando...",
+    "error": "Ha ocurrido un error",
+    "retry": "Reintentar"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "dashboard": "Panel de control"
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "actions": "Acciones",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No",
+    "close": "Cerrar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "submit": "Enviar",
+    "reset": "Restablecer"
+  },
+  "language": {
+    "select": "Seleccionar idioma",
+    "es": "Español",
+    "en": "Inglés"
+  },
+  "dashboard": {
+    "title": "Panel de Control",
+    "welcome": "Bienvenido al Panel de Control",
+    "description": "Este es tu centro de control principal."
+  },
+  "errors": {
+    "generic": "Ha ocurrido un error inesperado",
+    "network": "Error de conexión. Por favor, verifica tu conexión a internet.",
+    "notFound": "Recurso no encontrado",
+    "unauthorized": "No autorizado",
+    "forbidden": "Acceso denegado"
+  }
+}
