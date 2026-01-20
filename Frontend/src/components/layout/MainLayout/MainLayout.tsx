@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { Layout, Menu, Button, theme } from 'antd'
-import { MenuFoldOutlined, MenuUnfoldOutlined, DashboardOutlined } from '@ant-design/icons'
+import { MenuFoldOutlined, MenuUnfoldOutlined, DashboardOutlined, BookOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { LanguageSwitcher } from '@components/common/LanguageSwitcher'
@@ -25,6 +25,11 @@ export function MainLayout() {
       key: ROUTES.DASHBOARD,
       icon: <DashboardOutlined />,
       label: t('navigation.dashboard'),
+    },
+    {
+      key: ROUTES.COURSES,
+      icon: <BookOutlined />,
+      label: t('navigation.courses'),
     },
   ]
 

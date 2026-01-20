@@ -7,7 +7,8 @@
   },
   "navigation": {
     "home": "Home",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "courses": "Courses"
   },
   "common": {
     "save": "Save",
@@ -26,7 +27,8 @@
     "next": "Next",
     "previous": "Previous",
     "submit": "Submit",
-    "reset": "Reset"
+    "reset": "Reset",
+    "noData": "No data available"
   },
   "language": {
     "select": "Select language",
@@ -37,6 +39,17 @@
     "title": "Dashboard",
     "welcome": "Welcome to the Dashboard",
     "description": "This is your main control center."
+  },
+  "courses": {
+    "title": "Courses",
+    "description": "Browse and manage your courses.",
+    "instructor": "Instructor",
+    "duration": "Duration",
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    }
   },
   "errors": {
     "generic": "An unexpected error occurred",

@@ -8,6 +8,9 @@ import { ROUTES } from '@config/routes'
 const DashboardPage = lazy(() =>
   import('@features/dashboard').then((module) => ({ default: module.DashboardPage }))
 )
+const CoursesPage = lazy(() =>
+  import('@features/courses').then((module) => ({ default: module.CoursesPage }))
+)
 
 export function AppRouter() {
   return (
@@ -15,6 +18,7 @@ export function AppRouter() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path={ROUTES.DASHBOARD} element={<DashboardPage />} />
+          <Route path={ROUTES.COURSES} element={<CoursesPage />} />
           <Route path={ROUTES.HOME} element={<Navigate to={ROUTES.DASHBOARD} replace />} />
         </Route>
         <Route path="*" element={<Navigate to={ROUTES.DASHBOARD} replace />} />

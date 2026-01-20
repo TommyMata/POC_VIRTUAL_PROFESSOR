@@ -7,7 +7,8 @@
   },
   "navigation": {
     "home": "Inicio",
-    "dashboard": "Panel de control"
+    "dashboard": "Panel de control",
+    "courses": "Cursos"
   },
   "common": {
     "save": "Guardar",
@@ -26,7 +27,8 @@
     "next": "Siguiente",
     "previous": "Anterior",
     "submit": "Enviar",
-    "reset": "Restablecer"
+    "reset": "Restablecer",
+    "noData": "No hay datos disponibles"
   },
   "language": {
     "select": "Seleccionar idioma",
@@ -37,6 +39,17 @@
     "title": "Panel de Control",
     "welcome": "Bienvenido al Panel de Control",
     "description": "Este es tu centro de control principal."
+  },
+  "courses": {
+    "title": "Cursos",
+    "description": "Explora y gestiona tus cursos.",
+    "instructor": "Instructor",
+    "duration": "Duración",
+    "levels": {
+      "beginner": "Principiante",
+      "intermediate": "Intermedio",
+      "advanced": "Avanzado"
+    }
   },
   "errors": {
     "generic": "Ha ocurrido un error inesperado",
