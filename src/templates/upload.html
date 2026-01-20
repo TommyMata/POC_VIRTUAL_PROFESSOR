@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Subir Temario</title>
+</head>
+<body>
+    <h1>Subir archivo de temario (PDF o DOCX)</h1>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".pdf,.docx" required>
+        <button type="submit">Subir</button>
+    </form>
+
+    {% if filename %}
+        <h2>Archivo subido: {{ filename }}</h2>
+        <h3>Texto extraído:</h3>
+        <pre style="white-space: pre-wrap; background: #f4f4f4; padding: 1em; border-radius: 5px; max-height: 400px; overflow: auto;">{{ extracted_text }}</pre>
+    {% endif %}
+</body>
+</html>
