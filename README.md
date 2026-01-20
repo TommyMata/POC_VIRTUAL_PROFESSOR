@@ -19,3 +19,22 @@ cd src
 python app.py
 ```
 Luego abre tu navegador en http://127.0.0.1:5000
+
+## Clonar y correr este proyecto
+
+1. Clona el repositorio:
+	```bash
+	git clone https://github.com/TommyMata/POC_VIRTUAL_PROFESSOR.git
+	cd POC_VIRTUAL_PROFESSOR
+	git checkout develop
+	```
+2. Instala las dependencias:
+	```bash
+	pip install -r requirements.txt
+	```
+3. Ejecuta la aplicación web:
+	```bash
+	cd src
+	python app.py
+	```
+4. Abre tu navegador en http://127.0.0.1:5000
