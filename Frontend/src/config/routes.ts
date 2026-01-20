@@ -1,6 +1,8 @@
 export const ROUTES = {
   HOME: '/',
   DASHBOARD: '/dashboard',
+  COURSE: '/course',
+  COURSE_DETAIL: '/courses/:courseId',
   COURSES: '/courses',
 } as const
 

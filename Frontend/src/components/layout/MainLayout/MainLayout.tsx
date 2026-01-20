@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { Layout, Menu, Button, theme } from 'antd'
-import { MenuFoldOutlined, MenuUnfoldOutlined, DashboardOutlined, BookOutlined } from '@ant-design/icons'
+import { MenuFoldOutlined, MenuUnfoldOutlined, DashboardOutlined, PlusOutlined, BookOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { LanguageSwitcher } from '@components/common/LanguageSwitcher'
@@ -22,14 +22,19 @@ export function MainLayout() {
 
   const menuItems: MenuProps['items'] = [
     {
+      key: ROUTES.COURSES,
+      icon: <BookOutlined />,
+      label: 'Cursos',
+    },
+    {
+      key: ROUTES.COURSE,
+      icon: <PlusOutlined />,
+      label: 'Crear Curso',
+    },
+    {
       key: ROUTES.DASHBOARD,
       icon: <DashboardOutlined />,
       label: t('navigation.dashboard'),
-    },
-    {
-      key: ROUTES.COURSES,
-      icon: <BookOutlined />,
-      label: t('navigation.courses'),
     },
   ]
 
@@ -40,7 +45,7 @@ export function MainLayout() {
   const selectedKeys = [location.pathname]
 
   return (
-    <Layout className="min-h-screen">
+    <Layout className="min-h-screen flex flex-col">
       <Sider
         trigger={null}
         collapsible
@@ -61,9 +66,9 @@ export function MainLayout() {
           className="border-none"
         />
       </Sider>
-      <Layout>
+      <Layout className="flex-1 flex flex-col">
         <Header
-          className="flex items-center justify-between border-b border-neutral-200 px-4"
+          className="flex items-center justify-between border-b border-neutral-200 px-4 flex-shrink-0"
           style={{ background: colorBgContainer }}
         >
           <Button
@@ -76,11 +81,10 @@ export function MainLayout() {
           </div>
         </Header>
         <Content
-          className="m-4 p-6"
+          className="flex-1 flex flex-col m-4 p-6 overflow-y-auto"
           style={{
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
-            minHeight: 280,
           }}
         >
           <ErrorBoundary>

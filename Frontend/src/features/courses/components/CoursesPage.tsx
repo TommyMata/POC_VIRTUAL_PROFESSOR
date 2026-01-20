@@ -1,5 +1,6 @@
 import { Card, Tag } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { PageHeader } from '@components/common/PageHeader'
 import { DataList } from '@components/common/DataList'
 
@@ -55,9 +56,14 @@ const levelColors = {
 
 export function CoursesPage() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
 
   const renderCourse = (course: Course) => (
-    <Card hoverable className="h-full">
+    <Card 
+      hoverable 
+      className="h-full cursor-pointer"
+      onClick={() => navigate(`/courses/${course.id}`)}
+    >
       <div className="flex flex-col gap-2">
         <div className="flex items-start justify-between">
           <h3 className="text-lg font-semibold">{course.title}</h3>

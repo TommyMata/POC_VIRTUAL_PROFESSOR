@@ -1,0 +1,43 @@
+.file-upload-container {
+  transition: all 0.3s ease;
+}
+
+.file-upload-container.active {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-upload-container :deep(.ant-upload-drag) {
+  border: 2px dashed #d9d9d9;
+  border-radius: 8px;
+  background-color: #fafafa;
+  transition: all 0.3s ease;
+  padding: 48px 16px !important;
+}
+
+.file-upload-container.active :deep(.ant-upload-drag) {
+  border-color: #1677ff;
+  background-color: #f0f5ff;
+}
+
+.file-upload-container :deep(.ant-upload-drag:hover) {
+  border-color: #40a9ff;
+  background-color: #f5f7fa;
+}
+
+.file-upload-container :deep(.ant-upload-drag-icon) {
+  font-size: 48px;
+  color: #1677ff;
+  margin-bottom: 16px;
+}
+
+.file-upload-container :deep(.ant-upload-text) {
+  font-size: 16px;
+  color: #262626;
+  margin-bottom: 8px;
+}
+
+.file-upload-container :deep(.ant-upload-hint) {
+  font-size: 14px;
+  color: #8c8c8c;
+}
