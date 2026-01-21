@@ -1,5 +1,5 @@
 from app.core.app import create_app
-from app.api.api import router as ping_router
+from app.api.api import router
 
 app = create_app()
-app.include_router(ping_router)
+app.include_router(router)
