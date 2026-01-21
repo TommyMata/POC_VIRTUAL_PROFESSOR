@@ -1,1 +1,0 @@
-export { ClassesPage } from './components'

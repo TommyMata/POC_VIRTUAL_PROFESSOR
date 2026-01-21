@@ -1,7 +1,8 @@
 import { Component, type ReactNode, type ErrorInfo } from 'react'
 import { Button, Result } from 'antd'
+import { withTranslation, type WithTranslation } from 'react-i18next'
 
-interface ErrorBoundaryProps {
+interface ErrorBoundaryProps extends WithTranslation {
   children: ReactNode
   fallback?: ReactNode
 }
@@ -11,7 +12,7 @@ interface ErrorBoundaryState {
   error: Error | null
 }
 
-export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+class ErrorBoundaryClass extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props)
     this.state = { hasError: false, error: null }
@@ -30,6 +31,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   render(): ReactNode {
+    const { t } = this.props
+
     if (this.state.hasError) {
       if (this.props.fallback) {
         return this.props.fallback
@@ -39,14 +42,14 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         <div className="flex min-h-screen items-center justify-center">
           <Result
             status="error"
-            title="Something went wrong"
-            subTitle={this.state.error?.message || 'An unexpected error occurred'}
+            title={t('errors.somethingWrong')}
+            subTitle={this.state.error?.message || t('errors.generic')}
             extra={[
               <Button type="primary" key="retry" onClick={this.handleReset}>
-                Try Again
+                {t('common.tryAgain')}
               </Button>,
               <Button key="home" onClick={() => (window.location.href = '/')}>
-                Go Home
+                {t('common.goHome')}
               </Button>,
             ]}
           />
@@ -57,3 +60,5 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     return this.props.children
   }
 }
+
+export const ErrorBoundary = withTranslation()(ErrorBoundaryClass)

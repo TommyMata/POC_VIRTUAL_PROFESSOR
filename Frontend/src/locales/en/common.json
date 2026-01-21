@@ -8,7 +8,8 @@
   "navigation": {
     "home": "Home",
     "dashboard": "Dashboard",
-    "courses": "Courses"
+    "courses": "Courses",
+    "createCourse": "Create Course"
   },
   "common": {
     "save": "Save",
@@ -28,7 +29,10 @@
     "previous": "Previous",
     "submit": "Submit",
     "reset": "Reset",
-    "noData": "No data available"
+    "noData": "No data available",
+    "tryAgain": "Try Again",
+    "goHome": "Go Home",
+    "update": "Update"
   },
   "language": {
     "select": "Select language",
@@ -38,7 +42,24 @@
   "dashboard": {
     "title": "Dashboard",
     "welcome": "Welcome to the Dashboard",
-    "description": "This is your main control center."
+    "description": "This is your main control center.",
+    "stats": {
+      "users": "Users",
+      "courses": "Courses",
+      "active": "Active",
+      "completed": "Completed"
+    },
+    "intro": "This is a React base project configured with:",
+    "technologies": {
+      "vite": "Vite - Modern and fast build tool",
+      "antd": "Ant Design - UI component library",
+      "tailwind": "Tailwind CSS - CSS utilities",
+      "axios": "Axios - HTTP client",
+      "router": "React Router - Navigation",
+      "i18n": "i18next - Internationalization (Spanish/English)",
+      "context": "Context API - Global state",
+      "typescript": "TypeScript - Static typing"
+    }
   },
   "courses": {
     "title": "Courses",
@@ -51,11 +72,61 @@
       "advanced": "Advanced"
     }
   },
+  "course": {
+    "create": {
+      "title": "Create Course",
+      "description": "Upload your course agenda and customize it with a title and description"
+    },
+    "form": {
+      "courseTitle": "Course Title",
+      "courseDescription": "Course Description",
+      "agenda": "Course Agenda",
+      "generateCourse": "Generate Course",
+      "placeholders": {
+        "title": "E.g.: Python for Beginners",
+        "description": "Briefly describe the course content and objectives"
+      },
+      "validation": {
+        "titleRequired": "Course title is required",
+        "titleMinLength": "Title must be at least 5 characters"
+      }
+    },
+    "messages": {
+      "fileSelected": "File \"{{fileName}}\" selected successfully",
+      "titleRequired": "Please enter the course title",
+      "fileRequired": "Please select a file with the agenda",
+      "courseGenerated": "Course generated successfully!",
+      "courseError": "Error generating course"
+    }
+  },
   "errors": {
     "generic": "An unexpected error occurred",
     "network": "Connection error. Please check your internet connection.",
     "notFound": "Resource not found",
     "unauthorized": "Unauthorized",
-    "forbidden": "Access denied"
+    "forbidden": "Access denied",
+    "somethingWrong": "Something went wrong"
+  },
+  "classCard": {
+    "video": "Video",
+    "audio": "Audio",
+    "images": "images",
+    "minutes": "min"
+  },
+  "fileUpload": {
+    "allowedFormatsError": "Only allowed files: {{formats}}",
+    "maxSizeError": "File must not exceed {{maxSize}}MB",
+    "dragText": "Drag your file here or click to select",
+    "hint": "Allowed formats: PDF, DOC, DOCX (Maximum {{maxSize}}MB)"
+  },
+  "courseDetail": {
+    "classes": "Classes",
+    "loadError": "Error loading course",
+    "totalClasses": "Total Classes",
+    "durationPerClass": "Duration per Class",
+    "totalDuration": "Total Duration",
+    "courseClasses": "Course Classes",
+    "notFound": "Course not found",
+    "loading": "Loading course..."
   }
 }

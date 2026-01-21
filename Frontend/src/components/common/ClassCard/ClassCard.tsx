@@ -1,5 +1,6 @@
 import { Card, Image, Badge, Space, Tag, Button } from 'antd'
 import { PlayCircleOutlined, AudioOutlined, FileImageOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import type { Class } from '@/types/api.types'
 import './ClassCard.css'
 
@@ -9,6 +10,7 @@ interface ClassCardProps {
 }
 
 export function ClassCard({ classData, onClick }: ClassCardProps) {
+  const { t } = useTranslation()
   const hasAudio = !!classData.media.audioUrl
   const hasVideo = !!classData.media.videoUrl
   const hasImages = classData.media.images.length > 0
@@ -55,13 +57,13 @@ export function ClassCard({ classData, onClick }: ClassCardProps) {
 
         <div className="class-card-meta">
           <Space size="small">
-            <Tag color="blue">{classData.duration} min</Tag>
+            <Tag color="blue">{classData.duration} {t('classCard.minutes')}</Tag>
             {hasImages && (
               <Tag
                 icon={<FileImageOutlined />}
                 color="green"
               >
-                {classData.media.images.length} imágenes
+                {classData.media.images.length} {t('classCard.images')}
               </Tag>
             )}
           </Space>
@@ -71,9 +73,9 @@ export function ClassCard({ classData, onClick }: ClassCardProps) {
           <div className="class-card-media-info">
             <small className="text-neutral-600">
               {[
-                hasVideo && 'Video',
-                hasAudio && 'Audio',
-                hasImages && `${classData.media.images.length} imágenes`,
+                hasVideo && t('classCard.video'),
+                hasAudio && t('classCard.audio'),
+                hasImages && `${classData.media.images.length} ${t('classCard.images')}`,
               ]
                 .filter(Boolean)
                 .join(' • ')}

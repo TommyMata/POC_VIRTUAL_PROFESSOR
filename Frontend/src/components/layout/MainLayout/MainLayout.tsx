@@ -24,12 +24,12 @@ export function MainLayout() {
     {
       key: ROUTES.COURSES,
       icon: <BookOutlined />,
-      label: 'Cursos',
+      label: t('navigation.courses'),
     },
     {
       key: ROUTES.COURSE,
       icon: <PlusOutlined />,
-      label: 'Crear Curso',
+      label: t('navigation.createCourse'),
     },
     {
       key: ROUTES.DASHBOARD,

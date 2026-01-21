@@ -21,7 +21,7 @@ export function DashboardPage() {
         <Col xs={24} sm={12} lg={6}>
           <Card>
             <Statistic
-              title="Usuarios"
+              title={t('dashboard.stats.users')}
               value={1234}
               prefix={<UserOutlined />}
               valueStyle={{ color: '#1677ff' }}
@@ -31,7 +31,7 @@ export function DashboardPage() {
         <Col xs={24} sm={12} lg={6}>
           <Card>
             <Statistic
-              title="Cursos"
+              title={t('dashboard.stats.courses')}
               value={56}
               prefix={<BookOutlined />}
               valueStyle={{ color: '#52c41a' }}
@@ -41,7 +41,7 @@ export function DashboardPage() {
         <Col xs={24} sm={12} lg={6}>
           <Card>
             <Statistic
-              title="Activos"
+              title={t('dashboard.stats.active')}
               value={89}
               prefix={<RocketOutlined />}
               valueStyle={{ color: '#faad14' }}
@@ -51,7 +51,7 @@ export function DashboardPage() {
         <Col xs={24} sm={12} lg={6}>
           <Card>
             <Statistic
-              title="Completados"
+              title={t('dashboard.stats.completed')}
               value={432}
               prefix={<CheckCircleOutlined />}
               valueStyle={{ color: '#52c41a' }}
@@ -63,17 +63,17 @@ export function DashboardPage() {
       <Card className="mt-6">
         <Title level={4}>{t('dashboard.welcome')}</Title>
         <Paragraph>
-          Este es un proyecto base de React configurado con:
+          {t('dashboard.intro')}
         </Paragraph>
         <ul className="list-disc pl-6">
-          <li>Vite - Build tool moderno y r&aacute;pido</li>
-          <li>Ant Design - Biblioteca de componentes UI</li>
-          <li>Tailwind CSS - Utilidades CSS</li>
-          <li>Axios - Cliente HTTP</li>
-          <li>React Router - Navegaci&oacute;n</li>
-          <li>i18next - Internacionalizaci&oacute;n (Espa&ntilde;ol/Ingl&eacute;s)</li>
-          <li>Context API - Estado global</li>
-          <li>TypeScript - Tipado est&aacute;tico</li>
+          <li>{t('dashboard.technologies.vite')}</li>
+          <li>{t('dashboard.technologies.antd')}</li>
+          <li>{t('dashboard.technologies.tailwind')}</li>
+          <li>{t('dashboard.technologies.axios')}</li>
+          <li>{t('dashboard.technologies.router')}</li>
+          <li>{t('dashboard.technologies.i18n')}</li>
+          <li>{t('dashboard.technologies.context')}</li>
+          <li>{t('dashboard.technologies.typescript')}</li>
         </ul>
       </Card>
     </div>

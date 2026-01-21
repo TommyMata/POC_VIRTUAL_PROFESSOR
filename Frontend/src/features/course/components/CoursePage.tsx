@@ -1,53 +1,56 @@
 import { useState } from 'react'
-import { Card, Form, Input, Button, message, Space, Typography } from 'antd'
+import { Card, Form, Input, message, Space, Typography } from 'antd'
 import { PlusOutlined, FileOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import { FileUpload } from '@components/common/FileUpload'
+import { Button } from '@components/common/Button'
 import type { RcFile } from 'antd/es/upload'
-import './CoursePage.css'
+import { PageHeader } from '@/components'
 
-const { Title, Paragraph, Text } = Typography
+const { Text } = Typography
 
 export function CoursePage() {
+  const { t } = useTranslation()
   const [form] = Form.useForm()
   const [selectedFile, setSelectedFile] = useState<RcFile | null>(null)
   const [loading, setLoading] = useState(false)
 
   const handleFileSelected = (file: RcFile) => {
     setSelectedFile(file)
-    message.success(`Archivo "${file.name}" seleccionado correctamente`)
+    message.success(t('course.messages.fileSelected', { fileName: file.name }))
   }
 
-  const handleGenerateCurriculum = async () => {
+  const handleGenerateCourse = async () => {
     const values = form.getFieldsValue()
 
     if (!values.courseTitle) {
-      message.error('Por favor ingresa el título del curso')
+      message.error(t('course.messages.titleRequired'))
       return
     }
 
     if (!selectedFile) {
-      message.error('Por favor selecciona un archivo con el temario')
+      message.error(t('course.messages.fileRequired'))
       return
     }
 
     setLoading(true)
     try {
-      // Simulamos la generación del temario
-      // Aquí irá la llamada a tu API
-      console.log('Generando temario...', {
+      // Simulate course generation
+      // TODO: Replace with real API call
+      console.log('Generating course...', {
         courseTitle: values.courseTitle,
         courseDescription: values.courseDescription,
         file: selectedFile.name,
       })
 
-      // Simulamos un delay
+      // Simulate a delay
       await new Promise((resolve) => setTimeout(resolve, 2000))
 
-      message.success('¡Temario generado exitosamente!')
+      message.success(t('course.messages.courseGenerated'))
       form.resetFields()
       setSelectedFile(null)
     } catch (error) {
-      message.error('Error al generar el temario')
+      message.error(t('course.messages.courseError'))
     } finally {
       setLoading(false)
     }
@@ -56,23 +59,21 @@ export function CoursePage() {
   return (
     <div className="course-page-container">
       <div className="course-header">
-        <Title level={2}>Crear Nuevo Curso</Title>
-        <Paragraph className="text-neutral-600">
-          Carga el temario de tu curso y personalizalo con título y descripción
-        </Paragraph>
+        <PageHeader
+          title={t('course.create.title')}
+          description={t('course.create.description')}
+        />
       </div>
 
       <Card className="course-form-card">
         <Form
           form={form}
           layout="vertical"
-          className="course-form"
         >
-          {/* Título del Curso */}
           <Form.Item
             label={
               <Space>
-                <span>Título del Curso</span>
+                <span>{t('course.form.courseTitle')}</span>
                 <Text type="danger">*</Text>
               </Space>
             }
@@ -80,39 +81,37 @@ export function CoursePage() {
             rules={[
               {
                 required: true,
-                message: 'El título del curso es requerido',
+                message: t('course.form.validation.titleRequired'),
               },
               {
                 min: 5,
-                message: 'El título debe tener al menos 5 caracteres',
+                message: t('course.form.validation.titleMinLength'),
               },
             ]}
           >
             <Input
-              placeholder="Ej: Python para Principiantes"
+              placeholder={t('course.form.placeholders.title')}
               size="large"
               prefix={<FileOutlined />}
             />
           </Form.Item>
 
-          {/* Descripción del Curso */}
           <Form.Item
-            label="Descripción del Curso"
+            label={t('course.form.courseDescription')}
             name="courseDescription"
           >
             <Input.TextArea
-              placeholder="Describe brevemente el contenido y objetivos del curso"
+              placeholder={t('course.form.placeholders.description')}
               rows={4}
               maxLength={500}
               showCount
             />
           </Form.Item>
 
-          {/* Área de Drag & Drop */}
           <Form.Item
             label={
               <Space>
-                <span>Temario del Curso</span>
+                <span>{t('course.form.agenda')}</span>
                 <Text type="danger">*</Text>
               </Space>
             }
@@ -128,17 +127,15 @@ export function CoursePage() {
         </Form>
       </Card>
 
-      {/* Botón Generar */}
-      <div className="course-actions">
+      <div className="flex justify-end mt-6">
         <Button
           type="primary"
           size="large"
           icon={<PlusOutlined />}
-          onClick={handleGenerateCurriculum}
+          onClick={handleGenerateCourse}
           loading={loading}
-          className="generate-button"
         >
-          Generar Temario
+          {t('course.form.generateCourse')}
         </Button>
       </div>
     </div>

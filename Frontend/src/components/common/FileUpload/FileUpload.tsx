@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Upload, message } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import type { RcFile } from 'antd/es/upload'
-import './FileUpload.css'
 
 export interface FileUploadProps {
   onFileSelected: (file: RcFile) => void
@@ -15,6 +15,7 @@ export function FileUpload({
   maxSize = 10,
   acceptedFormats = ['.pdf', '.doc', '.docx'],
 }: FileUploadProps) {
+  const { t } = useTranslation()
   const [isDragActive, setIsDragActive] = useState(false)
 
   const beforeUpload = (file: RcFile) => {
@@ -24,14 +25,14 @@ export function FileUpload({
 
     if (!isValidFormat) {
       message.error(
-        `Solo se permiten archivos: ${acceptedFormats.join(', ')}`
+        t('fileUpload.allowedFormatsError', { formats: acceptedFormats.join(', ') })
       )
       return false
     }
 
     const isValidSize = file.size / 1024 / 1024 < maxSize
     if (!isValidSize) {
-      message.error(`El archivo no debe superar ${maxSize}MB`)
+      message.error(t('fileUpload.maxSizeError', { maxSize }))
       return false
     }
 
@@ -58,10 +59,10 @@ export function FileUpload({
           <InboxOutlined />
         </p>
         <p className="ant-upload-text">
-          Arrastra tu archivo aquí o haz clic para seleccionar
+          {t('fileUpload.dragText')}
         </p>
         <p className="ant-upload-hint">
-          Formatos permitidos: PDF, DOC, DOCX (Máximo {maxSize}MB)
+          {t('fileUpload.hint', { maxSize })}
         </p>
       </Upload.Dragger>
     </div>

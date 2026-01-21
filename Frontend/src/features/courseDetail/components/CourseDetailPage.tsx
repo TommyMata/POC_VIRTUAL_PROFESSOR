@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Row, Col, Empty, Spin, message, Button, Space, Breadcrumb } from 'antd'
 import { ArrowLeftOutlined, ReloadOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import { ClassCard } from '@components/common/ClassCard'
+import { CourseMetric } from '@components/common/CourseMetric'
 import type { CourseDetail, Class } from '@/types/api.types'
-import './CourseDetailPage.css'
+import { PageHeader } from '@/components'
 
 export function CourseDetailPage() {
+  const { t } = useTranslation()
   const { courseId } = useParams<{ courseId: string }>()
   const navigate = useNavigate()
   const [course, setCourse] = useState<CourseDetail | null>(null)
@@ -15,11 +18,11 @@ export function CourseDetailPage() {
   const fetchCourseDetail = async () => {
     setLoading(true)
     try {
-      // TODO: Reemplazar con llamada real al endpoint
+      // TODO: Replace with real API call
       // const response = await api.get(ENDPOINTS.COURSE_BY_ID(courseId))
       // setCourse(response.data.course)
 
-      // Simulamos datos de ejemplo para "Base de Datos II"
+      // Mock data for "Database II" course
       const mockCourse: CourseDetail = {
         id: courseId || 'db-2',
         title: 'Base de Datos II',
@@ -32,8 +35,7 @@ export function CourseDetailPage() {
         updatedAt: new Date().toISOString(),
         classes: Array.from({ length: 21 }, (_, i) => ({
           id: `class-${i + 1}`,
-          title: `Clase ${i + 1}: ${
-            [
+          title: `Clase ${i + 1}: ${[
               'Introducción a Bases de Datos',
               'Modelo Relacional',
               'SQL Básico - SELECT',
@@ -56,7 +58,7 @@ export function CourseDetailPage() {
               'Performance Tuning',
               'Proyecto Final',
             ][i] || `Contenido Clase ${i + 1}`
-          }`,
+            }`,
           description: `Contenido detallado de la clase ${i + 1} del curso Base de Datos II`,
           thumbnail: `https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=500&h=280&fit=crop&t=${i}`,
           duration: 30,
@@ -79,7 +81,7 @@ export function CourseDetailPage() {
 
       setCourse(mockCourse)
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Error al cargar el curso'
+      const errorMessage = err instanceof Error ? err.message : t('courseDetail.loadError')
       message.error(errorMessage)
     } finally {
       setLoading(false)
@@ -91,15 +93,15 @@ export function CourseDetailPage() {
   }, [courseId])
 
   const handleClassClick = (classData: Class) => {
-    console.log('Clase seleccionada:', classData)
-    // TODO: Navegar a la página de reproducción de la clase
+    console.log('Selected class:', classData)
+    // TODO: Navigate to class playback page
   }
 
   return (
-    <div className="course-detail-page-container">
-      {/* Breadcrumb y botones */}
-      <div className="course-detail-header">
-        <div className="course-detail-breadcrumb">
+    <div className="w-full flex flex-col h-full">
+      {/* Breadcrumb and buttons */}
+      <div className="flex justify-between items-center mb-6 gap-4 max-md:flex-col max-md:items-start">
+        <div className="flex-1">
           <Breadcrumb
             items={[
               {
@@ -109,7 +111,7 @@ export function CourseDetailPage() {
                     onClick={() => navigate('/classes')}
                     icon={<ArrowLeftOutlined />}
                   >
-                    Clases
+                    {t('courseDetail.classes')}
                   </Button>
                 ),
               },
@@ -126,44 +128,46 @@ export function CourseDetailPage() {
             onClick={fetchCourseDetail}
             loading={loading}
           >
-            Actualizar
+            {t('common.update')}
           </Button>
         </Space>
       </div>
 
-      <Spin spinning={loading} size="large" tip="Cargando curso...">
+      <Spin spinning={loading} size="large" tip={t('courseDetail.loading')}>
         {course ? (
-          <div className="course-detail-content">
-            {/* Información del curso */}
-            <div className="course-detail-info">
-              <h1 className="course-detail-title">{course.title}</h1>
-              <p className="course-detail-description">{course.description}</p>
-              <div className="course-detail-stats">
-                <div className="stat-item">
-                  <span className="stat-label">Total de Clases:</span>
-                  <span className="stat-value">{course.totalClasses}</span>
-                </div>
-                <div className="stat-item">
-                  <span className="stat-label">Duración por Clase:</span>
-                  <span className="stat-value">30 minutos</span>
-                </div>
-                <div className="stat-item">
-                  <span className="stat-label">Duración Total:</span>
-                  <span className="stat-value">
-                    {course.totalClasses * 30 >= 60
+          <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+            {/* Course information */}
+            <div className="mb-10 pb-8 border-b border-neutral-200">
+              <PageHeader
+                title={course.title}
+                description={course.description}
+              />
+              <div className="flex gap-8 flex-wrap max-lg:gap-6 max-md:flex-col max-md:gap-4">
+                <CourseMetric
+                  label={t('courseDetail.totalClasses')}
+                  value={course.totalClasses}
+                />
+                <CourseMetric
+                  label={t('courseDetail.durationPerClass')}
+                  value={`30 ${t('classCard.minutes')}`}
+                />
+                <CourseMetric
+                  label={t('courseDetail.totalDuration')}
+                  value={
+                    course.totalClasses * 30 >= 60
                       ? `${Math.floor((course.totalClasses * 30) / 60)}h ${(course.totalClasses * 30) % 60}m`
-                      : `${course.totalClasses * 30}m`}
-                  </span>
-                </div>
+                      : `${course.totalClasses * 30}m`
+                  }
+                />
               </div>
             </div>
 
-            {/* Grid de clases */}
-            <div className="course-detail-classes">
-              <h2 className="classes-section-title">
-                Clases del Curso ({course.classes.length})
+            {/* Classes grid */}
+            <div className="mb-8">
+              <h2 className="mb-6 text-xl font-semibold text-neutral-800 max-md:text-lg">
+                {t('courseDetail.courseClasses')} ({course.classes.length})
               </h2>
-              <Row gutter={[16, 16]} className="classes-grid">
+              <Row gutter={[16, 16]} className="w-full">
                 {course.classes.map((classData) => (
                   <Col key={classData.id} xs={24} sm={24} md={12} lg={6}>
                     <ClassCard
@@ -178,8 +182,8 @@ export function CourseDetailPage() {
         ) : (
           !loading && (
             <Empty
-              description="No se encontró el curso"
-              className="course-detail-empty-state"
+              description={t('courseDetail.notFound')}
+              className="flex items-center justify-center h-[400px] w-full"
             />
           )
         )}
