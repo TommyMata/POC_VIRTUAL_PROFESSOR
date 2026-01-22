@@ -1,0 +1,132 @@
+{
+  "app": {
+    "name": "POC Virtual Professor",
+    "loading": "Cargando...",
+    "error": "Ha ocurrido un error",
+    "retry": "Reintentar"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "dashboard": "Panel de control",
+    "courses": "Cursos",
+    "createCourse": "Crear Curso"
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "actions": "Acciones",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No",
+    "close": "Cerrar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "submit": "Enviar",
+    "reset": "Restablecer",
+    "noData": "No hay datos disponibles",
+    "tryAgain": "Reintentar",
+    "goHome": "Ir al Inicio",
+    "update": "Actualizar"
+  },
+  "language": {
+    "select": "Seleccionar idioma",
+    "es": "Español",
+    "en": "Inglés"
+  },
+  "dashboard": {
+    "title": "Panel de Control",
+    "welcome": "Bienvenido al Panel de Control",
+    "description": "Este es tu centro de control principal.",
+    "stats": {
+      "users": "Usuarios",
+      "courses": "Cursos",
+      "active": "Activos",
+      "completed": "Completados"
+    },
+    "intro": "Este es un proyecto base de React configurado con:",
+    "technologies": {
+      "vite": "Vite - Build tool moderno y rápido",
+      "antd": "Ant Design - Biblioteca de componentes UI",
+      "tailwind": "Tailwind CSS - Utilidades CSS",
+      "axios": "Axios - Cliente HTTP",
+      "router": "React Router - Navegación",
+      "i18n": "i18next - Internacionalización (Español/Inglés)",
+      "context": "Context API - Estado global",
+      "typescript": "TypeScript - Tipado estático"
+    }
+  },
+  "courses": {
+    "title": "Cursos",
+    "description": "Explora y gestiona tus cursos.",
+    "instructor": "Instructor",
+    "duration": "Duración",
+    "levels": {
+      "beginner": "Principiante",
+      "intermediate": "Intermedio",
+      "advanced": "Avanzado"
+    }
+  },
+  "course": {
+    "create": {
+      "title": "Crear Curso",
+      "description": "Carga el temario de tu curso y personalízalo con título y descripción"
+    },
+    "form": {
+      "courseTitle": "Título del Curso",
+      "courseDescription": "Descripción del Curso",
+      "agenda": "Temario del Curso",
+      "generateCourse": "Generar Curso",
+      "placeholders": {
+        "title": "Ej: Python para Principiantes",
+        "description": "Describe brevemente el contenido y objetivos del curso"
+      },
+      "validation": {
+        "titleRequired": "El título del curso es requerido",
+        "titleMinLength": "El título debe tener al menos 5 caracteres"
+      }
+    },
+    "messages": {
+      "fileSelected": "Archivo \"{{fileName}}\" seleccionado correctamente",
+      "titleRequired": "Por favor ingresa el título del curso",
+      "fileRequired": "Por favor selecciona un archivo con el temario",
+      "courseGenerated": "¡Curso generado exitosamente!",
+      "courseError": "Error al generar el curso"
+    }
+  },
+  "errors": {
+    "generic": "Ha ocurrido un error inesperado",
+    "network": "Error de conexión. Por favor, verifica tu conexión a internet.",
+    "notFound": "Recurso no encontrado",
+    "unauthorized": "No autorizado",
+    "forbidden": "Acceso denegado",
+    "somethingWrong": "Algo salió mal"
+  },
+  "classCard": {
+    "video": "Video",
+    "audio": "Audio",
+    "images": "imágenes",
+    "minutes": "min"
+  },
+  "fileUpload": {
+    "allowedFormatsError": "Solo se permiten archivos: {{formats}}",
+    "maxSizeError": "El archivo no debe superar {{maxSize}}MB",
+    "dragText": "Arrastra tu archivo aquí o haz clic para seleccionar",
+    "hint": "Formatos permitidos: PDF, DOC, DOCX (Máximo {{maxSize}}MB)"
+  },
+  "courseDetail": {
+    "classes": "Clases",
+    "loadError": "Error al cargar el curso",
+    "totalClasses": "Total de Clases",
+    "durationPerClass": "Duración por Clase",
+    "totalDuration": "Duración Total",
+    "courseClasses": "Clases del Curso",
+    "notFound": "No se encontró el curso",
+    "loading": "Cargando curso..."
+  }
+}
