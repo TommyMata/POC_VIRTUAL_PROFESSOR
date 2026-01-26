@@ -1,5 +1,6 @@
 pdfplumber
 python-docx
+reportlab
 openai
 python-dotenv
 python-multipart
@@ -17,3 +18,4 @@ starlette==0.50.0
 typing-inspection==0.4.2
 typing_extensions==4.15.0
 uvicorn==0.40.0
+requests
