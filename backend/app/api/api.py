@@ -110,6 +110,8 @@ async def upload_file(file: UploadFile = File(...)):
                     c.drawString(40, y, wline)
                     y -= 16
             c.save()
+            if idx == 1:
+                print(f"First index: {idx}")
             pdf_links.append({"lesson": lesson_title, "pdf": pdf_filename})
 
     return {
@@ -121,6 +123,67 @@ async def upload_file(file: UploadFile = File(...)):
 HEYGEN_API_KEY = os.getenv("HEYGEN_API_KEY")
 HEYGEN_API_URL = "https://api.heygen.com/v2/video/generate"
 HEYGEN_STATUS_URL = "https://api.heygen.com/v1/video_status.get"
+
+
+async def generate_video_from_text(script_text):
+    headers = {"X-Api-Key": HEYGEN_API_KEY, "Content-Type": "application/json"}
+    data = {
+        "video_inputs": [{
+            "character": {"type": "avatar", "avatar_id": "Georgia_sitting_office_front", "avatar_style": "normal"},
+            "input_text": script_text,
+            "voice": {"type": "text", "input_text": script_text, "voice_id": "79cb233e53e04419aa6f86db0ce8b192"}
+        }],
+        "dimension": {"width": 1280, "height": 720}
+    }
+
+    response = requests.post(HEYGEN_API_URL, headers=headers, json=data)
+    if response.status_code != 200:
+        try:
+            error_detail = response.json()
+        except Exception:
+            error_detail = response.text
+        raise HTTPException(status_code=response.status_code, detail=f"Error HeyGen: {error_detail}")
+
+    res_json = response.json()
+    video_id = res_json["data"]["video_id"]
+
+    video_url = None
+    max_retries = 60 # Wait 10-minute max for video generation (10s * 30)
+    for _ in range(max_retries):
+        time.sleep(10)
+        status_res = requests.get(f"{HEYGEN_STATUS_URL}?video_id={video_id}", headers=headers)
+        print(status_res.text)
+        if status_res.status_code != 200:
+            continue
+
+        try:
+            status_json = status_res.json()
+        except Exception:
+            continue
+
+
+        status = status_json.get("data", {}).get("status")
+        if status == "completed":
+            video_url = status_json["data"]["video_url"]
+            break
+        elif status == "failed":
+            raise HTTPException(status_code=500, detail="HeyGen video generation failed.")
+
+    if not video_url:
+        return {"message": "Video is taking longer than expected. ID: " + video_id}
+
+    video_filename = f"video_{uuid.uuid4().hex[:8]}.mp4"
+    video_path = os.path.join(UPLOAD_FOLDER, video_filename)
+
+    video_data = requests.get(video_url).content
+    with open(video_path, "wb") as f:
+        f.write(video_data)
+
+    return {
+        "filename": video_filename,
+        "path": video_path
+    }
+
 
 @router.post("/video1", tags=["Video Generation"])
 async def generate_video(file: UploadFile = File(...)):
@@ -141,64 +204,11 @@ async def generate_video(file: UploadFile = File(...)):
         if not script_text.strip():
             raise HTTPException(status_code=400, detail="The PDF is empty.")
 
-        headers = {"X-Api-Key": HEYGEN_API_KEY, "Content-Type": "application/json"}
-        data = {
-            "video_inputs": [{
-                "character": {"type": "avatar", "avatar_id": "Georgia_sitting_office_front", "avatar_style": "normal"},
-                "input_text": script_text,
-                "voice": {"type": "text", "input_text": script_text, "voice_id": "79cb233e53e04419aa6f86db0ce8b192"}
-            }],
-            "dimension": {"width": 1280, "height": 720}
-        }
-
-        response = requests.post(HEYGEN_API_URL, headers=headers, json=data)
-        if response.status_code != 200:
-            try:
-                error_detail = response.json()
-            except Exception:
-                error_detail = response.text
-            raise HTTPException(status_code=response.status_code, detail=f"Error HeyGen: {error_detail}")
-
-        res_json = response.json()
-        video_id = res_json["data"]["video_id"]
-
-        video_url = None
-        max_retries = 60 # Wait 10-minute max for video generation (10s * 30)
-        for _ in range(max_retries):
-            time.sleep(10)
-            status_res = requests.get(f"{HEYGEN_STATUS_URL}?video_id={video_id}", headers=headers)
-            print(status_res.text)
-            print(status_res.status_code)
-            if status_res.status_code != 200:
-                continue
-
-            try:
-                status_json = status_res.json()
-            except Exception:
-                continue
-
-
-            status = status_json.get("data", {}).get("status")
-            if status == "completed":
-                video_url = status_json["data"]["video_url"]
-                break
-            elif status == "failed":
-                raise HTTPException(status_code=500, detail="HeyGen video generation failed.")
-
-        if not video_url:
-            return {"message": "Video is taking longer than expected. ID: " + video_id}
-
-        video_filename = f"video_{uuid.uuid4().hex[:8]}.mp4"
-        video_path = os.path.join(UPLOAD_FOLDER, video_filename)
-
-        video_data = requests.get(video_url).content
-        with open(video_path, "wb") as f:
-            f.write(video_data)
-
+        video = await generate_video_from_text(script_text)
         return {
             "message": "Video generated and saved successfully.",
-            "video_filename": video_filename,
-            "video_path": video_path
+            "video_filename": video["filename"],
+            "video_path": video["path"]
         }
 
     except Exception as e:
