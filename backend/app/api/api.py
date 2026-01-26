@@ -111,8 +111,12 @@ async def upload_file(file: UploadFile = File(...)):
                     y -= 16
             c.save()
             if idx == 1:
-                print(f"First index: {idx}")
-            pdf_links.append({"lesson": lesson_title, "pdf": pdf_filename})
+                video = await generate_video_from_text(script_text)
+                print("Video file name: "+video["filename"])
+                print("Video path: "+video["path"])
+                pdf_links.append({"lesson": lesson_title, "pdf": pdf_filename, "video": video["filename"]})
+            else:
+                pdf_links.append({"lesson": lesson_title, "pdf": pdf_filename})
 
     return {
         "filename": filename,
