@@ -69,6 +69,7 @@ async def upload_file(file: UploadFile = File(...)):
 
     # Generate scripts and PDFs automatically
     pdf_links = []
+    kahoot_quizzes = []
     if course_json.get("lessons"):
         for idx, lesson in enumerate(course_json["lessons"], 1):
             lesson_title = lesson.get("lesson", f"Lesson {idx}")
@@ -76,8 +77,8 @@ async def upload_file(file: UploadFile = File(...)):
             script_prompt = (
                 f"You are an expert teacher. Generate a highly detailed, specific, and engaging spoken script for the lesson titled '{lesson_title}'. "
                 f"Explain the following topics thoroughly, with clear examples, analogies, and step-by-step explanations: {', '.join(topics)}. "
-                "The script should be long enough to be read aloud for at least 15 minutes, and should include an introduction, a comprehensive development section, and a thoughtful closing. "
-                "Make sure the script is continuous, not summarized, and covers all points in depth."
+                "The script should be suitable to be read aloud in a video of up to 2 minutes (no more than half a page of text), and should include an introduction, development, and closing. "
+                "Make sure the script is continuous, not summarized, and covers all points in depth, but keep the total length appropriate for a 2-minute presentation."
             )
             try:
                 script_response = client.chat.completions.create(
@@ -118,10 +119,75 @@ async def upload_file(file: UploadFile = File(...)):
             else:
                 pdf_links.append({"lesson": lesson_title, "pdf": pdf_filename})
 
+            # Extract text from the generated PDF for quiz generation
+            try:
+                pdf_script_text = extract_text_from_pdf(pdf_path)
+            except Exception as e:
+                pdf_script_text = f"Error extracting text from PDF: {str(e)}"
+
+            # Generate quiz based on the PDF content
+            kahoot_quiz_json = []
+            if pdf_script_text and topics:
+                kahoot_prompt = (
+                    f"You MUST generate exactly 1 challenging multiple choice question (with 4 options labeled A, B, C, D and one correct answer) for the following lesson script (extracted from the PDF). The question must require understanding, application, or analysis of the lesson content. Do not use general knowledge or information outside the script. Do not skip or refuse to generate the question for any reason. Return ONLY a valid JSON array with this structure: [{{'question': '...', 'options': ['A: ...', 'B: ...', 'C: ...', 'D: ...'], 'answer': 'A: ...'}}]. Do NOT use markdown or code blocks. Script: {pdf_script_text}"
+                )
+                try:
+                    kahoot_response = client.chat.completions.create(
+                        model="gpt-3.5-turbo",
+                        messages=[{"role": "user", "content": kahoot_prompt}]
+                    )
+                    kahoot_quiz = kahoot_response.choices[0].message.content
+                    # Clean up code blocks and markdown if present
+                    if kahoot_quiz.strip().startswith("```"):
+                        kahoot_quiz = kahoot_quiz.strip().lstrip("`json").lstrip("`").rstrip("`")
+                        kahoot_quiz = kahoot_quiz.replace("```", "").replace("json", "").strip()
+                    # Try to parse as JSON (force valid JSON)
+                    import re
+                    kahoot_quiz_json = []
+                    quiz_str = kahoot_quiz
+                    # Replace single quotes with double quotes for JSON compatibility
+                    quiz_str = re.sub(r"'", '"', quiz_str)
+                    # Remove trailing commas before closing brackets
+                    quiz_str = re.sub(r',\s*([}\]])', r'\1', quiz_str)
+                    # Try to extract JSON array with regex if parse fails
+                    match = re.search(r'(\[.*\])', quiz_str, re.DOTALL)
+                    if match:
+                        quiz_str = match.group(1)
+                    try:
+                        kahoot_quiz_json = json.loads(quiz_str)
+                        # Ensure it's a list of dicts with required keys
+                        if not (isinstance(kahoot_quiz_json, list) and all(isinstance(q, dict) and 'question' in q and 'options' in q and 'answer' in q for q in kahoot_quiz_json)):
+                            kahoot_quiz_json = []
+                    except Exception:
+                        kahoot_quiz_json = []
+                except Exception as e:
+                    kahoot_quiz_json = f"Error generating Kahoot quiz: {str(e)}"
+            else:
+                kahoot_quiz_json = "Quiz could not be generated due to missing script or topics."
+            # Add 'Lesson X' label and 'Question X' to each question
+            lesson_number = idx
+            # Remove duplicate 'Lesson X:' if present
+            lesson_title_clean = lesson_title
+            expected_prefix = f"Lesson {lesson_number}: "
+            if lesson_title.startswith(expected_prefix):
+                lesson_title_clean = lesson_title[len(expected_prefix):]
+            lesson_label = f"Lesson {lesson_number}: {lesson_title_clean}"
+            formatted_quiz = []
+            if isinstance(kahoot_quiz_json, list):
+                for q_idx, q in enumerate(kahoot_quiz_json, 1):
+                    question_label = f"Question {q_idx}"
+                    formatted_quiz.append({
+                        "question": f"{question_label}: {q.get('question', '')}",
+                        "options": q.get('options', []),
+                        "answer": q.get('answer', '')
+                    })
+            kahoot_quizzes.append({"lesson": lesson_label, "quiz": formatted_quiz})
+
     return {
         "filename": filename,
         "course_json": course_json,
-        "scripts": pdf_links
+        "scripts": pdf_links,
+        "kahoot_quizzes": kahoot_quizzes
     }
 
 HEYGEN_API_KEY = os.getenv("HEYGEN_API_KEY")
