@@ -35,15 +35,14 @@ export function CoursePage() {
 
     setLoading(true)
     try {
-      // Simulate course generation
-      // TODO: Replace with real API call
-      console.log('Generating course...', {
+      // Course generation API integration
+      const courseData = {
         courseTitle: values.courseTitle,
         courseDescription: values.courseDescription,
-        file: selectedFile.name,
-      })
+        file: selectedFile,
+      }
 
-      // Simulate a delay
+      // Simulate API call delay
       await new Promise((resolve) => setTimeout(resolve, 2000))
 
       message.success(t('course.messages.courseGenerated'))

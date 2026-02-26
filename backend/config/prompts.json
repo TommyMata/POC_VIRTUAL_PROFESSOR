@@ -1,0 +1,26 @@
+{
+  "course_analysis": {
+    "template": "Analyze the following educational document and generate a comprehensive course structure.\n\nRequirements:\n1. Extract and create a descriptive course title based on content analysis\n2. Generate a concise course description (2-3 sentences)\n3. Structure content into logical lessons with specific topics\n\nOutput Format: Valid JSON only\n{\n    \"course_title\": \"Descriptive title based on content\",\n    \"course_description\": \"Brief overview explaining what students will learn\",\n    \"lessons\": [\n        {\n            \"lesson\": \"Clear lesson title\",\n            \"topics\": [\"specific_topic_1\", \"specific_topic_2\", \"...\"]\n        }\n    ]\n}\n\nDocument Content:\n{document_content}",
+    "parameters": ["document_content"],
+    "model_config": {
+      "temperature": 0.7,
+      "max_tokens": 1500
+    }
+  },
+  "lesson_script": {
+    "template": "Create a comprehensive educational script for the lesson: \"{lesson_title}\"\n\nTopics to cover: {topics}\n\nRequirements:\n- Duration: 2-3 minutes of spoken content\n- Structure: Introduction, main content, conclusion\n- Style: Professional, engaging, educational\n- Include practical examples and clear explanations\n- Format for video narration (natural speech flow)\n\nGenerate a complete, ready-to-read script suitable for educational video production.",
+    "parameters": ["lesson_title", "topics"],
+    "model_config": {
+      "temperature": 0.8,
+      "max_tokens": 2000
+    }
+  },
+  "quiz_generation": {
+    "template": "Generate 1 challenging multiple-choice question based on this lesson content.\n\nRequirements:\n- Focus on understanding and application, not memorization\n- 4 options labeled A, B, C, D\n- One clearly correct answer\n- Question should test comprehension of the material\n\nContent: {lesson_content}\n\nReturn ONLY valid JSON:\n[{\n    \"question\": \"Clear, specific question\",\n    \"options\": [\"A: option1\", \"B: option2\", \"C: option3\", \"D: option4\"],\n    \"answer\": \"A: correct_option\"\n}]",
+    "parameters": ["lesson_content"],
+    "model_config": {
+      "temperature": 0.6,
+      "max_tokens": 800
+    }
+  }
+}

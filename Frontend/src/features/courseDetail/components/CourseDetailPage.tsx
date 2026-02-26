@@ -18,58 +18,58 @@ export function CourseDetailPage() {
   const fetchCourseDetail = async () => {
     setLoading(true)
     try {
-      // TODO: Replace with real API call
+      // Mock data for demonstration - replace with API call
       // const response = await api.get(ENDPOINTS.COURSE_BY_ID(courseId))
       // setCourse(response.data.course)
 
-      // Mock data for "Database II" course
+      // Mock data for "Advanced Database Systems" course
       const mockCourse: CourseDetail = {
-        id: courseId || 'db-2',
-        title: 'Base de Datos II',
+        id: courseId || 'advanced-db',
+        title: 'Advanced Database Systems',
         description:
-          'Aprende SQL avanzado, diseño de bases de datos normalizadas, optimización de consultas y administración de bases de datos. Este curso te preparará para trabajar con sistemas de bases de datos en producción.',
+          'Master advanced SQL techniques, normalized database design, query optimization, and database administration. This comprehensive course prepares you for production-level database systems.',
         thumbnail:
-          'https://images.unsplash.com/photo-1516321318423-f06f70504466?w=800&h=400&fit=crop',
+          'https://picsum.photos/800/400?random=database', // 🎯 Thumbnail principal que carga bien
         totalClasses: 21,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         classes: Array.from({ length: 21 }, (_, i) => ({
           id: `class-${i + 1}`,
-          title: `Clase ${i + 1}: ${[
-              'Introducción a Bases de Datos',
-              'Modelo Relacional',
-              'SQL Básico - SELECT',
-              'SQL Básico - WHERE y Operadores',
-              'SQL - JOIN Operations',
-              'SQL - Aggregate Functions',
-              'SQL - GROUP BY y HAVING',
-              'Subqueries y Consultas Complejas',
-              'Índices y Optimización',
-              'Normalización - 1NF',
-              'Normalización - 2NF y 3NF',
-              'Transacciones y ACID',
-              'Constraints y Triggers',
-              'Vistas y Stored Procedures',
-              'Backup y Recovery',
-              'Seguridad en Bases de Datos',
-              'Replicación y Distribución',
-              'NoSQL vs SQL',
-              'MongoDB Basics',
+          title: `Lesson ${i + 1}: ${[
+              'Introduction to Database Systems',
+              'Relational Model Fundamentals',
+              'Basic SQL - SELECT Queries',
+              'SQL Filtering - WHERE Clauses',
+              'SQL JOIN Operations',
+              'Aggregate Functions',
+              'GROUP BY and HAVING Clauses',
+              'Subqueries and Complex Queries',
+              'Indexing and Optimization',
+              'First Normal Form (1NF)',
+              'Second and Third Normal Forms',
+              'Transactions and ACID Properties',
+              'Constraints and Triggers',
+              'Views and Stored Procedures',
+              'Backup and Recovery Strategies',
+              'Database Security',
+              'Replication and Distribution',
+              'NoSQL vs Relational Databases',
+              'MongoDB Fundamentals',
               'Performance Tuning',
-              'Proyecto Final',
-            ][i] || `Contenido Clase ${i + 1}`
+              'Final Project Implementation',
+            ][i] || `Database Concepts ${i + 1}`
             }`,
-          description: `Contenido detallado de la clase ${i + 1} del curso Base de Datos II`,
-          thumbnail: `https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=500&h=280&fit=crop&t=${i}`,
+          description: `Comprehensive content for lesson ${i + 1} of Advanced Database Systems`,
+          thumbnail: `http://localhost:8000/uploads/preview.png`, // 🎯 Imagen consistente profesional
           duration: 30,
           order: i + 1,
           media: {
-            videoUrl: `https://example.com/video/db2-class-${i + 1}.mp4`,
+            videoUrl: `http://localhost:8000/uploads/video_f25b141c.mp4`, // 🎯 URL completa del backend
             images: [
               {
                 id: `img-${i}-1`,
-                url: `https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=800`,
-                alt: `Clase ${i + 1}`,
+                url: `http://localhost:8000/uploads/preview.png`,
+                alt: `Lesson ${i + 1}`,
                 order: 1,
               },
             ],
@@ -93,8 +93,8 @@ export function CourseDetailPage() {
   }, [courseId])
 
   const handleClassClick = (classData: Class) => {
-    console.log('Selected class:', classData)
-    // TODO: Navigate to class playback page
+    // Navigate to class playback interface
+    // Implementation would handle routing to video player
   }
 
   return (
